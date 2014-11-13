@@ -8,7 +8,6 @@ angular.module('sers.controllers').controller('OverviewController', [ '$scope', 
         var getEvents = function() {
             eventService.query(function(events) {
                  $scope.events = events;
-                 alert("herr dux");
                  console.logs(events);
 				 angular.forEach(events, function(event) {
 					var oneDay = 24*60*60*1000;
