@@ -4,7 +4,6 @@ angular.module('sers.routes').config([
     '$stateProvider',
     '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-
         $urlRouterProvider.otherwise("/overview");
 
         $stateProvider
