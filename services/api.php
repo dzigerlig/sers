@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 include 'functions.php';
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -27,9 +28,9 @@ $app->delete('/events/:e_id/participants/:p_id', 'deleteParticipantFromEvent');
 $app->run();
 
 function getConnection() {
-    $dbhost="127.0.0.1";
-    $dbuser="root";
-    $dbpass="";
+    $dbhost="localhost";
+    $dbuser="sers";
+    $dbpass="sers69";
     $dbname="sers";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->exec("set names utf8");
