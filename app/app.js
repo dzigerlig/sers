@@ -7,7 +7,7 @@ angular.module('sers', [
     'ui.bootstrap',
     'sers.controllers',
     'sers.services',
-    'sers.routes']).constant('REST_URL', '/services/'); 
+    'sers.routes']).constant('REST_URL', '/sers/services/'); 
 
 angular.module('sers.routes', []); 
 angular.module('sers.services', []);
