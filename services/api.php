@@ -29,8 +29,8 @@ $app->run();
 
 function getConnection() {
     $dbhost="localhost";
-    $dbuser="sers";
-    $dbpass="sers69";
+    $dbuser="root";
+    $dbpass="";
     $dbname="sers";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->exec("set names utf8");
@@ -39,7 +39,7 @@ function getConnection() {
 }
 
 function getEvents() {
-	$sql = "select sers_events.eventId, name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, price, slotsSkydive, slotsPax, postDate, (sers_events.slotsSkydive - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 0)) AS freeSlotsSkydive, (sers_events.slotsPax - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 1)) AS freeSlotsPax, (SELECT freeSlotsSkydive + freeSlotsPax) AS freeSlots, IF((SELECT DATEDIFF(CURDATE(),sers_events.registration_until)) > 0, 0, (SELECT -1*DATEDIFF(CURDATE(),sers_events.registration_until))) as remainingDays FROM sers_events ORDER BY postDate";
+	$sql = "select sers_events.eventId, name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, priceSkydive, pricePax, slotsSkydive, slotsPax, postDate, (sers_events.slotsSkydive - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 0)) AS freeSlotsSkydive, (sers_events.slotsPax - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 1)) AS freeSlotsPax, (SELECT freeSlotsSkydive + freeSlotsPax) AS freeSlots, IF((SELECT DATEDIFF(CURDATE(),sers_events.registration_until)) > 0, 0, (SELECT -1*DATEDIFF(CURDATE(),sers_events.registration_until))) as remainingDays FROM sers_events ORDER BY postDate";
     try {
         $db = getConnection();
         $stmt = $db->query($sql);
