@@ -14,15 +14,5 @@ angular.module('sers.routes').config([
 	            templateUrl: 'views/overview.html',
 	            controller: 'OverviewController',
 	        })
-	        // Import:
-	        // TODO
-	        
-	        // Reserving Classes
-	        //.state('reserving-class-overview', {
-	        	//url: '/reserving-class-overview',
-	        	//templateUrl: 'views/reserving_class/reserving-class-overview.html'
-	        //})
-	        
-	        // Test
     }
 ]);
