@@ -8,15 +8,12 @@ angular.module('sers.controllers').controller('OverviewController', [ '$scope', 
         var getEvents = function() {
             eventService.query(function(events) {
                  $scope.events = events;
-                 console.log(events);
-//				 angular.forEach(events, function(event) {
-//					var oneDay = 24*60*60*1000;
-//				 	var date = new Date(event.registration_until);
-//					var dateNow = new Date();
-//					event.remainingRegistrationDays = Math.round((date.getTime()-dateNow.getTime())/(oneDay));
-//					event.remainingRegistrationDays = event.remainingRegistrationDays < 0 ? 0 : event.remainingRegistrationDays;
-//					event.availableSlots = parseInt(event.slotsSkydive) + parseInt(event.slotsPax);
-//				 });
+				 angular.forEach(events, function(event) {
+					 event.postDate = moment(event.postDate).locale("de").format("DD.MM.YYYY");
+					 event.date_start = moment(event.date_start).locale("de").format("DD.MM.YYYY");
+					 event.date_end = moment(event.date_end).locale("de").format("DD.MM.YYYY");
+					 event.registration_until = moment(event.registration_until).locale("de").format("DD.MM.YYYY");
+				 });
             });
         };
 
