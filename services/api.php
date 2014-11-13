@@ -39,7 +39,7 @@ function getConnection() {
 }
 
 function getEvents() {
-	$sql = "select sers_events.eventId, name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, price, slotsSkydive, slotsPax, postDate, (sers_events.slotsSkydive - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 0)) AS freeSlotsSkydive, (sers_events.slotsPax - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 1)) AS freeSlotsPax, (SELECT freeSlotsSkydive + freeSlotsPax) AS freeSlots, IF((SELECT DATEDIFF(CURDATE(),sers_events.registration_until)) > 0, 0, (SELECT -1*DATEDIFF(CURDATE(),sers_events.registration_until))) as remainingDays FROM sers_events ORDER BY postDate";
+	$sql = "select sers_events.eventId, name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, priceSkydive, pricePax, slotsSkydive, slotsPax, postDate, (sers_events.slotsSkydive - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 0)) AS freeSlotsSkydive, (sers_events.slotsPax - (SELECT COUNT(*) FROM sers_participants WHERE sers_participants.eventId = sers_events.eventId AND sers_participants.pax = 1)) AS freeSlotsPax, (SELECT freeSlotsSkydive + freeSlotsPax) AS freeSlots, IF((SELECT DATEDIFF(CURDATE(),sers_events.registration_until)) > 0, 0, (SELECT -1*DATEDIFF(CURDATE(),sers_events.registration_until))) as remainingDays FROM sers_events ORDER BY postDate";
     try {
         $db = getConnection();
         $stmt = $db->query($sql);
@@ -55,7 +55,7 @@ function addEvent() {
 	$resultat = implode(",", $request->post());
     $event = json_decode($resultat);
 	//echo $event->name;
-    $sql = "INSERT INTO sers_events (name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, price, slotsSkydive, slotsPax, postDate) VALUES (:name, :picture, :description, :place, :requirements, :date_start, :date_end, :time_start, :time_end, :registration_until, :price, :slotsSkydive, :slotsPax, :postDate)";
+    $sql = "INSERT INTO sers_events (name, picture, description, place, requirements, date_start, date_end, time_start, time_end, registration_until, priceSkydive, pricePax, slotsSkydive, slotsPax, postDate) VALUES (:name, :picture, :description, :place, :requirements, :date_start, :date_end, :time_start, :time_end, :registration_until, :priceSkydive, :pricePax, :slotsSkydive, :slotsPax, :postDate)";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -69,7 +69,8 @@ function addEvent() {
         $stmt->bindParam("time_start", $event->time_start);
         $stmt->bindParam("time_end", $event->time_end);
         $stmt->bindParam("registration_until", $event->registration_until);
-        $stmt->bindParam("price", $event->price);
+        $stmt->bindParam("priceSkydive", $event->priceSkydive);
+        $stmt->bindParam("pricePax", $event->pricePax);
         $stmt->bindParam("slotsSkydive", $event->slotsSkydive);
         $stmt->bindParam("slotsPax", $event->slotsPax);
         $stmt->bindParam("postDate", $event->postDate);
