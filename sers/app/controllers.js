@@ -8,7 +8,7 @@ angular.module('sers.controllers').controller('OverviewController', [ '$scope', 
         var getEvents = function() {
             eventService.query(function(events) {
                  $scope.events = events;
-                 alert(JSON.stringify(events));
+                 console.logs(events);
 				 angular.forEach(events, function(event) {
 					var oneDay = 24*60*60*1000;
 				 	var date = new Date(event.registration_until);
