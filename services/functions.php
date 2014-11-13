@@ -1,48 +1,36 @@
 <?php
+
 	function generateDeleteCode($mail) {
 		return md5($mail . time());
 	}
 	
 	function sendConfirmationMail($mail, $deleteCode) {
-		// mehrere Empf채nger
-		$empfaenger  = '$mail';
+		// mehrere Empf둵ger
+		$empfaenger  = $mail . ', '; // beachten Sie das Komma
+		$empfaenger .= 'info@fun-island.ch';
 		
-		// Betreff
-		$betreff = 'SERS - Best채tigung Anmeldung f체r Skydive-Event';
+		$betreff = 'SERS - Anmeldung';
 		
 		// Nachricht
 		$nachricht = '
 		<html>
 		<head>
-		  <title>SERS - Best채tigung Anmeldung f체r Skydive-Event</title>
+		  <title>SERS - Anmeldung</title>
 		</head>
 		<body>
-		  <p>Code zum Abmelden: $deleteCode</p>
-		  <table>
-			<tr>
-			  <th>Person</th><th>Tag</th><th>Monat</th><th>Jahr</th>
-			</tr>
-			<tr>
-			  <td>Julia</td><td>3.</td><td>August</td><td>1970</td>
-			</tr>
-			<tr>
-			  <td>Tom</td><td>17.</td><td>August</td><td>1973</td>
-			</tr>
-		  </table>
+		  <p>Danke f&uuml;r deine Anmeldung.</p>
+		  <p>Um dich abzumelden gehe auf folgende <a href="http://sers.produxion.ch">Seite</a> und benutze folgenden Code: ' . $deleteCode . '</p>
 		</body>
 		</html>
 		';
 		
-		// f체r HTML-E-Mails muss der 'Content-type'-Header gesetzt werden
+		// f웦 HTML-E-Mails muss der 'Content-type'-Header gesetzt werden
 		$header  = 'MIME-Version: 1.0' . "\r\n";
 		$header .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		
-		// zus채tzliche Header
-		$header .= 'To: $mail' . "\r\n";
-		$header .= 'From: SERS - <info@produxtion.ch>' . "\r\n";
-		$header .= 'Bcc: info@produxion.ch' . "\r\n";
-				
-		// verschicke die E-Mail
+		$header .= 'From: info@produxion.ch' . "\r\n";
+		$header .= 'Reply-To: info@produxion.ch' . "\r\n";
+		$header .= 'X-Mailer: PHP/' . phpversion();
+
 		mail($empfaenger, $betreff, $nachricht, $header);
 	}
 	
