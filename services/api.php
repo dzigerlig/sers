@@ -29,8 +29,8 @@ $app->run();
 
 function getConnection() {
     $dbhost="localhost";
-    $dbuser="sers";
-    $dbpass="sers69";
+    $dbuser="root";
+    $dbpass="";
     $dbname="sers";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->exec("set names utf8");
