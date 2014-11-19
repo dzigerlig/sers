@@ -86,7 +86,7 @@ function deleteEvent($id) {
 	echo "delete event $id";
 	}
 function getParticipantsForEvent($id) {
-	$sql = "select * FROM sers_participants WHERE eventId='$id'";
+	$sql = "select participantsId, eventId, firstName, lastName, email, phone, pax FROM sers_participants WHERE eventId='$id'";
     try {
         $db = getConnection();
         $stmt = $db->query($sql);
@@ -140,6 +140,8 @@ function addParticipantToEvent($id) {
 
 
 function deleteParticipantFromEvent($e_id,$p_id) {
+	
+	
 	echo "delete participant $e_id from event $p_id";
 	}
 
