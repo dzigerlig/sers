@@ -139,10 +139,22 @@ function addParticipantToEvent($id) {
 }
 
 
-function deleteParticipantFromEvent($e_id,$p_id) {
-	
-	
-	echo "delete participant $e_id from event $p_id";
-	}
+function deleteParticipantFromEvent($e_id, $id) {
+    try {
+        $request = \Slim\Slim::getInstance()->request();
+        
+        $body = $request->getBody();
+        $event = json_decode($body); 
+        $sql = "DELETE FROM sers_participants WHERE participantsId=:id";
+
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("participentsId", $id);
+		$stmt->execute();
+        $db = null;
+    } catch(Exception $e) {
+        echo $e;
+    }	
+}
 
 ?>
