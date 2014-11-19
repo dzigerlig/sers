@@ -30,12 +30,11 @@ angular.module('sers.controllers').controller('OverviewController', [ '$scope', 
                     }
             }});
 
-            modalInstance.result.then(function () {
-                reservingQuarterService.delete(reservingQuarterObject.id, reservingQuarterObject.version).success(
-                    function() {
-                        getEvents();
-                    });
-            });
+            modalInstance.result.then(function() {
+                getEvents();
+	        }, function() {
+	             alert("error");
+	        });
         };
 
         $scope.openParticipantsModal = function(eventObject) {
@@ -58,6 +57,10 @@ angular.module('sers.controllers').controller('ParticipationController', ['$scop
         $scope.participation = {};
 
         $scope.event = event;
+        
+        if (event.freeSlotsSkydive == 0) {
+        	$scope.participation.pax = true;
+        }
 
         $scope.participate = function() {
             $scope.participation.eventId = event.eventId;
@@ -65,12 +68,10 @@ angular.module('sers.controllers').controller('ParticipationController', ['$scop
                 $scope.participation.pax = false;
             }
             $http.post(REST_URL + "events/" + event.eventId + "/participants", $scope.participation).success(function (data) {
-                alert("added to event");
-                $modalInstance.dismiss();
+                $modalInstance.close();
             }).error(function (data) {
                 alert("error");
             });
-            
         };
         
         $scope.cancel = function() {
@@ -85,8 +86,6 @@ angular.module('sers.controllers').controller('ParticipantsModalController', ['$
 
         $scope.event = event;
 
-    
-
         $http.get(REST_URL + 'events/' + event.eventId + '/participants').success(function(data) {
             $scope.participants = data;
         });
@@ -94,6 +93,5 @@ angular.module('sers.controllers').controller('ParticipantsModalController', ['$
         $scope.close = function() {
             $modalInstance.dismiss();
         };
-
     }
 ]);
