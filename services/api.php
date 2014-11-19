@@ -145,13 +145,16 @@ function deleteParticipantFromEvent($e_id, $id, $deleteCode) {
         
         $body = $request->getBody();
         $event = json_decode($body); 
-        $sql = "DELETE FROM sers_participants WHERE participantsId=:participantsId AND deleteCode=:deleteCode";
+        $sql = "DELETE FROM sers_participants WHERE (participantsId=:participantsId AND deleteCode=:deleteCode)";
 
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("participantsId", $id);
         $stmt->bindParam("deleteCode", $deleteCode);
 		$stmt->execute();
+		
+		echo $stmt->rowCount();
+		
         $db = null;
     } catch(Exception $e) {
         echo $e;

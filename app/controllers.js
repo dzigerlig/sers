@@ -46,7 +46,13 @@ angular.module('sers.controllers').controller('OverviewController', [ '$scope', 
                     event: function() {
                         return eventObject;
                     }
-            }});            
+            }});   
+            
+            modalInstance.result.then(function() {
+                getEvents();
+	        }, function() {
+	             //alert("error");
+	        });
         }
     }
 ]);
@@ -96,8 +102,13 @@ angular.module('sers.controllers').controller('ParticipantsModalController', ['$
         };
         
         $scope.abmelden = function() {
-        	$http.delete(REST_URL + 'events/' + event.eventId + '/participants/' + $scope.abmelden.participantsId + '/' + $scope.abmelden.code).success(function () {
-        		alert("gelöscht");
+        	$http.delete(REST_URL + 'events/' + event.eventId + '/participants/' + $scope.abmelden.participantsId + '/' + $scope.abmelden.code).success(function (data) {
+        		if (data != 1) {
+        			alert("Code falsch!");
+        		} else {
+        			alert("Teilnehmer gelöscht!");
+        			$modalInstance.close();
+        		}
         	})
         };
         
