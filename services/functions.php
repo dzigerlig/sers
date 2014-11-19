@@ -18,8 +18,9 @@
 		  <title>SERS - Anmeldung</title>
 		</head>
 		<body>
-		  <p>Danke f&uuml;r deine Anmeldung.</p>
-		  <p>Um dich abzumelden gehe auf folgende <a href="http://sers.produxion.ch">Seite</a> und benutze folgenden Code: ' . $deleteCode . '</p>
+		  <p>Danke f&uuml;r deine Anmeldung.</p><br>
+		  <p>Falls du dich abmelden mšchtest (nur bis zum angegebenen Datum mšglich) kannst du dies Ÿber die Teilnehmerliste des jeweiligen <a href="http://sers.produxion.ch">Events</a> machen.<br>
+		  DafŸr benštigst du folgenden Code: ' . $deleteCode . '</p><br>
 		</body>
 		</html>
 		';
