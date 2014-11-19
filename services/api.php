@@ -145,11 +145,12 @@ function deleteParticipantFromEvent($e_id, $id) {
         
         $body = $request->getBody();
         $event = json_decode($body); 
-        $sql = "DELETE FROM sers_participants WHERE participantsId=:id";
+        $sql = "DELETE FROM sers_participants WHERE participantsId=:id AND deleteCode=:deleteCode";
 
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("participentsId", $id);
+        $stmt->bindParam("deleteCode", $event->deleteCode);
 		$stmt->execute();
         $db = null;
     } catch(Exception $e) {
