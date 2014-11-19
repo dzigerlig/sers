@@ -21,6 +21,7 @@
 		  <p>Danke f&uuml;r deine Anmeldung.</p><br>
 		  <p>Falls du dich abmelden m&ouml;chtest (nur bis zum angegebenen Datum m&ouml;glich) kannst du dies Ÿber die Teilnehmerliste des jeweiligen <a href="http://sers.produxion.ch" target="_blank">Events</a> machen.</p><br>
 		  <p>Daf&uuml;r ben&ouml;tigst du folgenden Code: ' . $deleteCode . '</p><br>
+		  <p>Blue Sky from the SERS-Team</p>
 		</body>
 		</html>
 		';
