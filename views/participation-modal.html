@@ -24,9 +24,12 @@
                         <td><input type="text" class="form-control" id="phone" ng-model="participation.phone"></td>
                     </tr>
                     <tr>
-                        <td><b>PAX</b></td>
+                        <td><b>Passagier</b></td>
                         <td>
-                            <input type="checkbox" class="form-control" id="pax" ng-model="participation.pax"</td>
+                            <input ng-disabled="event.freeSlotsSkydive == 0" type="checkbox" class="form-control" id="pax" ng-model="participation.pax" ng-show="event.freeSlotsPax > 0">
+                            <i ng-show="event.freeSlotsPax == 0">Anmeldung nur als Fallschirmspringer möglich</i>
+                            <i ng-show="event.freeSlotsSkydive == 0">Anmeldung nur als Passagier möglich</i>
+                        </td>
                     </tr>
                 </tbody>
             </table>
