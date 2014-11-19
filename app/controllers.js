@@ -96,7 +96,7 @@ angular.module('sers.controllers').controller('ParticipantsModalController', ['$
         };
         
         $scope.abmelden = function() {
-        	$http.delete(REST_URL + 'events/' + event.eventId + '/participants/' + $scope.abmelden.participantsId, {deleteCode: $scope.abmelden.code }).success(function () {
+        	$http.delete(REST_URL + 'events/' + event.eventId + '/participants/' + $scope.abmelden.participantsId + '/' + $scope.abmelden.code).success(function () {
         		alert("gelöscht");
         	})
         };
