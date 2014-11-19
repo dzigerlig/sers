@@ -22,7 +22,7 @@ $app->get('/events/:id/participants', 'getParticipantsForEvent');
 $app->post('/events/:id/participants', 'addParticipantToEvent');
 
 // löschrt einen Teilnehmer mit bestimmter id eines Events
-$app->delete('/events/:e_id/participants/:p_id', 'deleteParticipantFromEvent');
+$app->delete('/events/:e_id/participants/:p_id/:deleteCode', 'deleteParticipantFromEvent');
 
  
 $app->run();
@@ -139,7 +139,7 @@ function addParticipantToEvent($id) {
 }
 
 
-function deleteParticipantFromEvent($e_id, $id) {
+function deleteParticipantFromEvent($e_id, $id, $deleteCode) {
     try {
         $request = \Slim\Slim::getInstance()->request();
         
@@ -150,7 +150,7 @@ function deleteParticipantFromEvent($e_id, $id) {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("participantsId", $id);
-        $stmt->bindParam("deleteCode", $event->deleteCode);
+        $stmt->bindParam("deleteCode", $deleteCode);
 		$stmt->execute();
         $db = null;
     } catch(Exception $e) {
